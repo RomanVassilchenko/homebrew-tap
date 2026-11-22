@@ -1,0 +1,31 @@
+name: CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    name: brew style and audit
+    runs-on: macos-26
+    timeout-minutes: 20
+    env:
+      HOMEBREW_NO_AUTO_UPDATE: "1"
+      HOMEBREW_NO_INSTALL_CLEANUP: "1"
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Style and audit
+        run: |
+          brew style Casks/*.rb
+          brew tap romanvassilchenko/tap "$PWD"
+          for cask in Casks/*.rb; do
+            brew audit --cask --strict --online "romanvassilchenko/tap/$(basename "$cask" .rb)"
+          done
