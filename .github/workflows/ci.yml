@@ -25,6 +25,8 @@ jobs:
       - name: Style and audit
         run: |
           brew style Casks/*.rb
+          # Homebrew loads third-party taps only once they are trusted
+          brew trust romanvassilchenko/tap
           brew tap romanvassilchenko/tap "$PWD"
           for cask in Casks/*.rb; do
             brew audit --cask --strict --online "romanvassilchenko/tap/$(basename "$cask" .rb)"
