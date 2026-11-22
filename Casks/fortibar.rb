@@ -18,11 +18,12 @@ cask "fortibar" do
   app "FortiBar.app"
   binary "#{appdir}/FortiBar.app/Contents/MacOS/FortiBar", target: "fortibar"
 
-  uninstall quit:   "com.romanvassilchenko.FortiBar",
-            delete: "/etc/sudoers.d/fortibar"
+  # Upgrades run the old version's uninstall: keep the sudo rule here, only --zap removes it
+  uninstall quit: "com.romanvassilchenko.FortiBar"
 
-  zap trash: [
-    "~/Library/Application Support/FortiBar",
-    "~/Library/Logs/FortiBar",
-  ]
+  zap delete: "/etc/sudoers.d/fortibar",
+      trash:  [
+        "~/Library/Application Support/FortiBar",
+        "~/Library/Logs/FortiBar",
+      ]
 end
