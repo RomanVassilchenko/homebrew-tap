@@ -1,6 +1,6 @@
 cask "fortibar" do
-  version "1.7.0"
-  sha256 "c344eac18614387aa826d1c8abf433c4d7df03812b9fc7280f2e29d3247b43bb"
+  version "1.8.0"
+  sha256 "921d9926cefebd39dedde3aa670baa2fd92f931db028b2bab5a40b7c7418c5b9"
 
   url "https://github.com/RomanVassilchenko/FortiBar/releases/download/v#{version}/FortiBar_v#{version}.dmg"
   name "FortiBar"
